@@ -4,10 +4,10 @@ namespace JrDev.Services.CharacterService
 {
     public interface ICharacterService
     {
-        List<Character> GetAllCharacters();
-        Character GetCharacterById(int id);
-        List<Character> AddCharacter(Character Personaje);
-        List<Character> EditCharacter(Character Personaje);
-        List<Character> DeleteCharacter(int id);
+        Task<ServiceResponse<List<Character>>> GetAllCharacters();
+        Task<ServiceResponse<Character>> GetCharacterById(int id);
+        Task<ServiceResponse<List<Character>>> AddCharacter(Character Personaje);
+        Task<ServiceResponse<List<Character>>> EditCharacter(Character Personaje);
+        Task<ServiceResponse<List<Character>>> DeleteCharacter(int id);
     }
 }

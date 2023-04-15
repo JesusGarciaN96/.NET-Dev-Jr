@@ -11,33 +11,45 @@ namespace JrDev.Services.CharacterService
                 new Character { Id = 3, Nombre = "Daniela", Fuerza = 400, Oficio = RPG.Clero }
             };
 
-        public List<Character> AddCharacter(Character Personaje)
+        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character Personaje)
         {
             if (Personaje == null)
             {
-                throw new Exception();
+                throw new Exception("El personaje no es válido");
             }
 
             Personajes.Add(Personaje);
-            return Personajes;
-        }
-
-        public List<Character> GetAllCharacters()
-        {
-            return Personajes;
-        }
-
-        public Character GetCharacterById(int id)
-        {
-            int indicePersonaje = Personajes.FindIndex(pr => pr.Id == id);
-            if (indicePersonaje > 0)
+            return new ServiceResponse<List<Character>>
             {
-                return Personajes[indicePersonaje];
-            }
-            throw new Exception();
+                Data = Personajes,
+                Message = "Personaje agregado"
+            };
         }
 
-        public List<Character> EditCharacter(Character Personaje)
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
+        {
+            return new ServiceResponse<List<Character>>
+            {
+                Data = Personajes,
+                Message = "Lista de personajes"
+            };
+        }
+
+        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
+        {
+            var indicePersonaje = Personajes.FirstOrDefault(pr => pr.Id == id);
+            if (indicePersonaje is not null)
+            {
+                return new ServiceResponse<Character>
+                {
+                    Data = indicePersonaje,
+                    Message = "Detalle del personaje"
+                };
+            }
+            throw new Exception("No se encontró el personaje");
+        }
+
+        public async Task<ServiceResponse<List<Character>>> EditCharacter(Character Personaje)
         {
             if (Personaje == null)
             {
@@ -48,20 +60,28 @@ namespace JrDev.Services.CharacterService
             if (indicePersonaje > 0)
             {
                 Personajes[indicePersonaje] = Personaje;
-                return Personajes;
+                return new ServiceResponse<List<Character>>
+                {
+                    Data = Personajes,
+                    Message = "Personaje editado"
+                };
             }
-            throw new Exception();
+            throw new Exception("No se encontró el personaje");
         }
 
-        public List<Character> DeleteCharacter(int id)
+        public async Task<ServiceResponse<List<Character>>> DeleteCharacter(int id)
         {
             int indicePersonaje = Personajes.FindIndex(pr => pr.Id == id);
             if (indicePersonaje > 0)
             {
                 Personajes.RemoveAt(indicePersonaje);
-                return Personajes;
+                return new ServiceResponse<List<Character>>
+                {
+                    Data = Personajes,
+                    Message = "Personaje eliminado"
+                };
             }
-            throw new Exception();
+            throw new Exception("No se encontró el personaje");
         }
     }
 }

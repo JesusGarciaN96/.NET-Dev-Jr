@@ -17,33 +17,33 @@ namespace JrDev.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Character>> GetAll()
+        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> GetAll()
         {
-            return Ok(_characterService.GetAllCharacters());
+            return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> Get(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>> Get(int id)
         {
-            return Ok(_characterService.GetCharacterById(id));
+            return Ok(await _characterService.GetCharacterById(id));
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<Character>> Post(Character Personaje)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Post(Character Personaje)
         {
-            return Ok(_characterService.AddCharacter(Personaje));
+            return Ok(await _characterService.AddCharacter(Personaje));
         }
 
         [HttpPut]
-        public ActionResult<IEnumerable<Character>> Put(Character Personaje)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Put(Character Personaje)
         {
-            return Ok(_characterService.EditCharacter(Personaje));
+            return Ok(await _characterService.EditCharacter(Personaje));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<Character>> Delete(int id)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Delete(int id)
         {
-            return Ok(_characterService.DeleteCharacter(id));
+            return Ok(await _characterService.DeleteCharacter(id));
         }
     }
 }
