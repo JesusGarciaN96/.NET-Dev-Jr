@@ -1,4 +1,5 @@
 ﻿using JrDev.Models;
+using JrDev.Dtos.Character;
 using JrDev.Services.CharacterService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,31 +18,31 @@ namespace JrDev.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetCharacterDto>>>> GetAll()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> Get(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Get(int id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Post(Character Personaje)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetCharacterDto>>>> Post(AddCharacterDto Personaje)
         {
             return Ok(await _characterService.AddCharacter(Personaje));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Put(Character Personaje)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetCharacterDto>>>> Put(GetCharacterDto Personaje)
         {
             return Ok(await _characterService.EditCharacter(Personaje));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<Character>>>> Delete(int id)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<GetCharacterDto>>>> Delete(int id)
         {
             return Ok(await _characterService.DeleteCharacter(id));
         }
